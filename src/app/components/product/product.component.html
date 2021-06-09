@@ -1,1 +1,40 @@
-<p>product works!</p>
+
+
+<div class="col-sm-12 padding-right">
+    <!-- <div class="row">
+      <div class="search-hero col-sm-6">
+        <input class="form-control alert-success" [(ngModel)]="filterText" type="text" name="search" id="filterText" autocomplete="off" placeholder="&#61442; Aradığınız Ürünü Belirtiniz.">
+      
+    </div>
+  </div> -->
+  
+  <div class="col-sm-12 padding-right">
+      <div class="features_items">
+      <div class="row">
+        <div *ngFor="let p of productsArray | filterPipe:filterText" class="col-sm-3" href="#asa">
+          <div  class="product-image-wrapper">
+            <div class="single-products">
+                <div class="productinfo text-center">
+                  <img src="{{p.imagePath}} " width="100%" height="25%" alt="" />
+                  <h5 style=" color: #20dbdbc7;">{{p.unitPrice}}</h5>
+                  <h5 style=" color: #20dbdbc7;">{{p.unitPrice | vatAdded:18 }}</h5>
+                  <p>{{p.productName | truncate:[20,'..'] | uppercase}}</p>
+           
+                </div>
+                <div class="product-overlay">
+                  <div class="overlay-content">
+                 
+                    <a class="btn btn-default add-to-cart"  (click)="addToCart(p.id)"><i class="fa fa-shopping-cart"></i>Sepete Ekle</a>
+                  </div>
+                </div>
+            </div>
+            <div class="choose">
+              <ul class="nav nav-pills nav-justified">
+                <li routerLink="/products/productdetails/{{p.id}}" ><a ><i class="fa fa-bars"></i>Ürün Detayı</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </div>

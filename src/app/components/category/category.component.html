@@ -1,1 +1,74 @@
-<p>category works!</p>
+
+
+<div class="left-sidebar">
+    <h2>Kategoriler</h2>
+    <div class="panel-group category-products" id="accordian">
+      <div class="panel panel-default" *ngFor="let category of categories">
+        <div class="panel-heading">
+          <h4
+            class="panel-title"
+            style="outline: 0;"
+            routerLink="products/category/{{ category.id }}"
+          >
+            <a
+              (click)="getSubCategoriesByCategory(category.id)"
+              (click)="setAllCategoryClick()"
+              data-toggle="collapse"
+              data-parent="#accordian"
+              href="#{{ category.id }}"
+            >
+              <span class="badge pull-right"><i class="fa fa-plus"></i></span>
+              {{category.categoryName }}
+            </a>
+          </h4>
+        </div>
+        <div id="{{ category.id }}" class="panel-collapse collapse">
+          <div class="panel-body">
+            <ul>
+              <li
+                [style]="getAllCategoryClass()"
+                (click)="setAllCategoryClick()"
+                style="outline: 0;"
+                routerLink="products/category/{{ category.id }}"
+              >
+                <a type="submit">Hepsini Göster</a>
+              </li>
+              <li
+                [style]="getCurrentSubCategoryClass(subCategory.id)"
+                (click)="setCurrentSubCategory(subCategory.id)"
+                *ngFor="let subCategory of subCategories"
+                style="outline: 0;"
+                routerLink="/products/category/subcategory/{{ subCategory.id }}"
+              >
+                <a type="submit">{{subCategory.subCategoryName }}</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <div class="brands_products">
+      <h2>Markalar</h2>
+      <div class="brands-name">
+        <ul class="nav-stacked">
+          <li
+          style="outline: 0;"
+            *ngFor="let brand of brands"
+            routerLink="products/brand/{{ brand.id }}"
+          >
+            <a> <span class="pull-right"></span>{{ brand.brandName }}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <hr />
+    <div>
+      <ngx-slider [(value)]="minValue" [(highValue)]="maxValue" [options]="options"></ngx-slider>
+    <div class="pull-right">
+      <button  type="submit" style="outline: 0;" routerLink="products/pricerange/{{minPrice}}/{{maxPrice}}"  >
+      <i class="fa fa-search"></i>
+      Ürün Ara
+  </button>
+    </div>
+  </div>

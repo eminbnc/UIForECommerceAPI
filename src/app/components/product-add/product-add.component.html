@@ -1,0 +1,92 @@
+
+<form clas="example-form "  (ngSubmit)="onSubmit" [formGroup]="productAddedForm">
+    <div class="row">
+      <div class="col-sm-6" >
+       <mat-form-field class="example-full-width" >
+         
+           <input type="text" matInput [matAutocomplete]="auto"  placeholder="Ürünü Kategorisi Seçiniz">
+           <mat-autocomplete [displayWith]="displayCategoryName" #auto="matAutocomplete" >
+             <mat-option  *ngFor="let item of categories " [value]="item" (click)="getSubCategories(item.id)">
+               {{item.categoryName}}
+             </mat-option>
+           </mat-autocomplete>
+         </mat-form-field>
+       </div>
+         <div class="col-sm-6">
+         <mat-form-field  class="example-full-width" *ngIf="subCategoryLoaded==true" >
+           <input type="text" matInput [matAutocomplete]="auto1"  placeholder="Ürünü Alt Kategorisini Seçiniz">
+           <mat-autocomplete [displayWith]="displaySubCategoryName" #auto1="matAutocomplete" >
+             <mat-option formControlName="subCategoryId" *ngFor="let item of subCategories " (click)="setSubCategoryId(item.id)" [value]="item">
+               {{item.subCategoryName}}
+             </mat-option>
+           </mat-autocomplete>
+         </mat-form-field>
+       </div>
+     </div>
+       <div class="row">
+       <div class="col-sm-4">
+         <mat-form-field class="example-full-width">
+         <input formControlName="productName" type="text" matInput   placeholder="Ürün İsmini Giriniz">
+       </mat-form-field>
+       </div>
+       <div class="col-sm-4">
+         <mat-form-field class="example-full-width">
+         <input formControlName="brand" type="text" matInput   placeholder="Ürün Markasını Giriniz">
+       </mat-form-field>
+       </div>
+       <div class="col-sm-4">
+         <mat-form-field class="example-full-width">
+         <input formControlName="model" type="text" matInput   placeholder="Ürün Modelini Giriniz">
+       </mat-form-field>
+       </div>
+   </div>
+   <div class="row">
+     <div class="col-sm-3">
+       <mat-form-field class="example-full-width">
+       <input formControlName="unitPrice" type="number" matInput   placeholder="Ürün Fiyatını Giriniz (tl)">
+     </mat-form-field>
+     </div>
+     <div class="col-sm-3">
+       <mat-form-field class="example-full-width">
+       <input formControlName="tax" type="number" matInput   placeholder="Ürün Vergisini Giriniz (%)">
+     </mat-form-field>
+     </div>
+     <div class="col-sm-3">
+       <mat-form-field class="example-full-width">
+       <input formControlName="discount"  type="number" matInput   placeholder="İndirim (tl) (İsteğe Bağlı)">
+     </mat-form-field>
+     </div>
+     <div class="col-sm-3">
+       <mat-form-field class="example-full-width">
+       <input formControlName="stock" type="number" matInput   placeholder="Stok Miktarı">
+     </mat-form-field>
+     </div>
+   </div>
+   <div class="col-sm-12" style="border: 1px solid orange;">
+     <div class="productinfo text-center"> <h5>Ürün Tanıtımı (Zorunlu Alan)</h5></div>
+   <ckeditor [editor]="editor" formControlName="description"  (ready)="onReady($event)"></ckeditor>
+   </div>
+   <div class="col-sm-12" style="border: 1px solid orange;">
+     <div class="productinfo text-center"> <h5>Teknik Özellikler (Zorunlu Alan)</h5></div>
+   <ckeditor [editor]="editor" formControlName="technicality"  (ready)="onReady($event)"></ckeditor>
+   </div>
+   <div class="row">
+       <div class="col-sm-4">
+           <div class="single-products">
+           <div class="productinfo text-center"> <h5>Ürün Resmi (Zorunlu Alan)</h5></div>
+           <div class="single-products">
+             <img [src]="productImage ||'assets/img.png'" width="270" height="270"  >
+           </div>
+           <div class="card-footer">
+               <input (change)="upload($event)" type="file" class="form-control" name="image">
+           </div>
+       </div>
+       </div>
+   </div>
+   <div class="pull-right">
+       <div class="range range-warning">
+         <a class="btn btn-default" style="background-color:orange ;" (click)="createProduct()" >Ürünü Ekle <i class="fa fa-check"></i></a>
+       </div>
+     </div>
+   </form>
+   
